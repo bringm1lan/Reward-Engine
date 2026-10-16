@@ -1,0 +1,19 @@
+[toolchain]
+anchor_version = "0.32.1"
+solana_version = "2.3.0"
+
+[features]
+resolution = true
+skip-lint = false
+
+# Development ID only. Generate a deployment key and run `anchor keys sync`
+# before deploying; no mainnet program is configured by this repository.
+[programs.localnet]
+distribution_router = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkgMQHGJkY4KT"
+
+[provider]
+cluster = "Localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "node --test programs/distribution-router/tests/localnet.test.mjs"

@@ -4,6 +4,20 @@ Standalone website for the ANSEM.TIPS social-distribution network. This app is
 intentionally separate from `dashboard/`: it has its own package, routes, build,
 deployment configuration, X authentication boundary, and Solana wallet connection.
 
+## Rust program and router
+
+The Solana program lives **inside this project** at
+[`programs/distribution-router/src/lib.rs`](programs/distribution-router/src/lib.rs).
+Its allocation arithmetic, Node client, localnet tests and
+[program documentation](programs/distribution-router/README.md) are alongside it.
+`Anchor.toml` and `Cargo.toml` at this root build the program independently of Vite.
+
+The earlier Pump/Stonk TypeScript adapter remains at
+`../backend/src/distribution-v3/feeRouter.ts`, where the backend currently imports
+it. It prepares launchpad transactions; the Rust program receives and routes SOL.
+The existing website is not yet connected to the Rust program, and nothing here
+deploys it or changes production balances.
+
 ## Routes
 
 - `/` — public vault network
