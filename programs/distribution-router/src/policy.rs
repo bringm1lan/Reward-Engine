@@ -38,9 +38,9 @@ mod tests {
     #[test]
     fn conserves_funds_for_small_large_and_fractional_splits() {
         for shares in [
-            [6000, 2000, 1000, 1000],
-            [3333, 3333, 3334, 0],
-            [0, 10000, 0, 0],
+            [5000, 2000, 1000, 1000, 1000],
+            [3333, 3333, 3334, 0, 0],
+            [0, 10000, 0, 0, 0],
         ] {
             for amount in [1, 3, 9999, 10_001, 1_000_000_000, u64::MAX] {
                 let result = split_lamports(amount, shares).unwrap();
@@ -59,7 +59,11 @@ mod tests {
 
     #[test]
     fn rejects_over_and_under_allocated_policies() {
-        for shares in [[0; BUCKETS], [2500, 2500, 2500, 2499], [u16::MAX; BUCKETS]] {
+        for shares in [
+            [0; BUCKETS],
+            [2500, 2500, 2500, 2499, 0],
+            [u16::MAX; BUCKETS],
+        ] {
             assert!(split_lamports(1_000_000, shares).is_err());
         }
     }

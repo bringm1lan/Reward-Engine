@@ -8,15 +8,24 @@ deployment configuration, X authentication boundary, and Solana wallet connectio
 
 The Solana program lives **inside this project** at
 [`programs/distribution-router/src/lib.rs`](programs/distribution-router/src/lib.rs).
-Its allocation arithmetic, Node client, localnet tests and
+Its vault/campaign modules, allocation arithmetic, Node client, localnet tests and
 [program documentation](programs/distribution-router/README.md) are alongside it.
 `Anchor.toml` and `Cargo.toml` at this root build the program independently of Vite.
+The separate [Rust keeper](keeper/README.md) handles supported fee collection,
+allocation, configured campaign refills/epochs and opt-in inventory settlement.
 
 The earlier Pump/Stonk TypeScript adapter remains at
 `../backend/src/distribution-v3/feeRouter.ts`, where the backend currently imports
-it. It prepares launchpad transactions; the Rust program receives and routes SOL.
+it. It prepares launchpad transactions. The Rust program now implements canonical
+vaults, fixed launchpad fee CPIs, five internal allocation buckets, SOL/SPL
+campaign escrow, bounded verifier-signed payouts, refunds and TIPANSEM RFQs.
 The existing website is not yet connected to the Rust program, and nothing here
 deploys it or changes production balances.
+
+Local launchpad tests use simplified fixtures, not live Pump/Raydium binaries.
+Stonk claims require the creator signature; post-graduation CPMM claims and DEX
+quote sourcing are not implemented. See the program documentation for exact
+integration boundaries before using real funds.
 
 ## Routes
 

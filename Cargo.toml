@@ -1,5 +1,6 @@
 [workspace]
-members = ["programs/distribution-router"]
+members = ["programs/distribution-router", "test-programs/spl-token", "test-programs/launchpad-fixture"]
+default-members = ["programs/distribution-router"]
 resolver = "2"
 
 [profile.release]

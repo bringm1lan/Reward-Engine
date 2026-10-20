@@ -8,8 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "router:build": "cargo build-sbf --manifest-path programs/distribution-router/Cargo.toml",
+    "router:idl": "mkdir -p target/idl target/types && anchor idl build -p distribution_router -o target/idl/distribution_router.json -t target/types/distribution_router.ts",
     "router:test:unit": "cargo test --locked --workspace",
-    "router:test": "npm run router:build && node --test programs/distribution-router/tests/localnet.test.mjs"
+    "router:test": "cargo build --manifest-path keeper/Cargo.toml --locked && cargo build-sbf --workspace && node --test programs/distribution-router/tests/localnet.test.mjs",
+    "keeper:test": "cargo test --manifest-path keeper/Cargo.toml --locked"
   },
   "overrides": {
     "@noble/hashes": "^1.6.0",
